@@ -1,7 +1,8 @@
 name: build
 
 # Основа — build.yml учебного репозитория (сборка и тесты DesignPatterns).
-# Добавлено: сборка и тесты LogHub, проверка диаграмм PlantUML в отчётах.
+# Добавлено: сборка и тесты LogHub, сравнение его вывода с исходным
+# god-object, проверка диаграмм PlantUML в отчётах.
 
 on:
   push:
@@ -42,6 +43,9 @@ jobs:
 
       - name: LogHub — тесты
         run: dotnet test LogHub/LogHub.sln --no-build --configuration Release --verbosity normal
+
+      - name: LogHub — вывод совпадает с исходным god-object
+        run: bash LogHub/tools/compare-with-god-object.sh
 
   diagrams:
     # Диаграммы в отчётах записаны блоками ```plantuml. Задание падает,
