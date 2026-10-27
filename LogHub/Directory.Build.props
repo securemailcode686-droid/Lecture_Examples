@@ -1,0 +1,21 @@
+<Project>
+
+  <!--
+    Общие настройки LogHub. Взяты из DesignPatterns/Directory.Build.props
+    учебного репозитория; отличия отмечены комментариями.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!-- Одинаковое форматирование дат и чисел на любой машине,
+         как и в учебном проекте: от этого зависит сравнение с god-object. -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+
+    <!-- Отличие: nullable включён, чтобы «может вернуть null» было видно в сигнатуре. -->
+    <Nullable>enable</Nullable>
+    <!-- Отличие: код без предупреждений — требование правил сдачи. -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+</Project>
