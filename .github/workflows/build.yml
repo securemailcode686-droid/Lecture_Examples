@@ -1,7 +1,7 @@
 name: build
 
-# Сборка и тесты на каждый push и каждый Pull Request.
-# Лабораторная работа с красным CI на проверку не принимается.
+# Основа — build.yml учебного репозитория (сборка и тесты DesignPatterns).
+# Добавлено: сборка и тесты LogHub, проверка диаграмм PlantUML в отчётах.
 
 on:
   push:
@@ -12,7 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -21,6 +20,7 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      # --- учебный проект: без изменений ---
       - name: Восстановление пакетов
         run: dotnet restore DesignPatterns/DesignPatterns.sln
 
@@ -32,3 +32,50 @@ jobs:
 
       - name: Проверка, что демо запускается
         run: dotnet run --project DesignPatterns/Implementation --configuration Release --no-build -- --list
+
+      # --- LogHub ---
+      - name: LogHub — восстановление пакетов
+        run: dotnet restore LogHub/LogHub.sln
+
+      - name: LogHub — сборка (предупреждения считаются ошибками)
+        run: dotnet build LogHub/LogHub.sln --no-restore --configuration Release
+
+      - name: LogHub — тесты
+        run: dotnet test LogHub/LogHub.sln --no-build --configuration Release --verbosity normal
+
+  diagrams:
+    # Диаграммы в отчётах записаны блоками ```plantuml. Задание падает,
+    # если хоть одна не собирается (-failfast2: без флага PlantUML
+    # рисует картинку с текстом ошибки и возвращает код 0).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Установка Graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Загрузка PlantUML
+        run: curl -sSL -o plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2025.2/plantuml-1.2025.2.jar
+
+      - name: Сборка диаграмм из docs/*.md
+        run: |
+          # Имена файлов — латиницей: Java на раннере может не прочитать
+          # кириллицу в пути (ЛР1.md -> out/doc1-01.puml).
+          mkdir -p out
+          i=0
+          for md in docs/*.md; do
+            i=$((i + 1))
+            echo "doc$i = $md"
+            awk -v base="out/doc$i" '
+              /^```plantuml/ { n++; f = sprintf("%s-%02d.puml", base, n); inside = 1; next }
+              /^```/         { if (inside) { inside = 0; close(f) } next }
+              inside         { print > f }
+            ' "$md"
+          done
+          ls out
+          java -jar plantuml.jar -failfast2 -charset UTF-8 -tsvg out/*.puml
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: diagrams
+          path: out/
