@@ -9,10 +9,20 @@ namespace LogHub.Tests
 	public sealed class DatabaseSinkTests
 	{
 		[TestMethod]
+		public void Создание_ОткрываетСоединение()
+		{
+			var database = new FakeDatabase();
+
+			using var sink = new DatabaseSink(database);
+
+			Assert.IsTrue(database.IsOpen);
+		}
+
+		[TestMethod]
 		public void Запись_ВставкаВТаблицуLogsСДатойУровнемИТекстом()
 		{
 			var database = new FakeDatabase();
-			var sink = new DatabaseSink(database);
+			using var sink = new DatabaseSink(database);
 			var record = Records.Of("Error", "исходное сообщение");
 
 			sink.Write(record, "отформатированный текст");
@@ -28,7 +38,6 @@ namespace LogHub.Tests
 		public void Освобождение_ЗакрываетСоединениеОдинРаз()
 		{
 			var database = new FakeDatabase();
-			database.Open();
 
 			new DatabaseSink(database).Dispose();
 

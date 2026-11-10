@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using LogHub.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,7 +9,7 @@ namespace LogHub.Tests
 		[TestMethod]
 		public void КомментарииПустыеИСтрокиБезРавенства_Пропускаются()
 		{
-			var config = ConfigParser.Parse(new[]
+			var values = ConfigParser.Parse(new[]
 			{
 				"# приёмник",
 				"",
@@ -19,42 +18,32 @@ namespace LogHub.Tests
 				"sink = file"
 			});
 
-			Assert.AreEqual("file", config["sink"]);
-			Assert.AreEqual("нет", config.GetValueOrDefault("просто текст", "нет"));
+			Assert.AreEqual(1, values.Count);
+			Assert.AreEqual("file", values["sink"]);
 		}
 
 		[TestMethod]
 		public void ЗначениеСоЗнакомРавенства_СохраняетсяЦеликом()
 		{
-			var config = ConfigParser.Parse(new[] { "connection = Server=db;User=app" });
+			var values = ConfigParser.Parse(new[] { "connection = Server=db;User=app" });
 
-			Assert.AreEqual("Server=db;User=app", config["connection"]);
+			Assert.AreEqual("Server=db;User=app", values["connection"]);
 		}
 
 		[TestMethod]
 		public void ПовторныйКлюч_ПереопределяетПредыдущий()
 		{
-			var config = ConfigParser.Parse(new[] { "sink=file", "sink=console" });
+			var values = ConfigParser.Parse(new[] { "sink=file", "sink=console" });
 
-			Assert.AreEqual("console", config["sink"]);
-		}
-
-		[TestMethod]
-		public void ОтсутствующийОбязательныйКлюч_БросаетKeyNotFound()
-		{
-			var config = ConfigParser.Parse(new[] { "sink=console" });
-
-			Assert.ThrowsExactly<KeyNotFoundException>(() => { _ = config["format"]; });
+			Assert.AreEqual("console", values["sink"]);
 		}
 
 		[TestMethod]
 		public void ЗначенияПоУмолчанию_КонсольInfoPlain()
 		{
-			var config = LogHubConfig.Defaults;
-
-			Assert.AreEqual("console", config[LogHubConfig.SinkKey]);
-			Assert.AreEqual("Info", config[LogHubConfig.MinSeverityKey]);
-			Assert.AreEqual("plain", config[LogHubConfig.FormatKey]);
+			Assert.AreEqual("console", ConfigKeys.Defaults[ConfigKeys.Sink]);
+			Assert.AreEqual("Info", ConfigKeys.Defaults[ConfigKeys.MinSeverity]);
+			Assert.AreEqual("plain", ConfigKeys.Defaults[ConfigKeys.Format]);
 		}
 	}
 }

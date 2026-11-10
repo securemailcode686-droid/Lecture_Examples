@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 
 namespace LogHub.Configuration
@@ -11,13 +12,19 @@ namespace LogHub.Configuration
 		public const string DefaultPath = "loghub.config";
 
 		/// <summary>
-		/// Читает файл, а если его нет — возвращает <see cref="LogHubConfig.Defaults"/>.
+		/// Переносит настройки из файла в <paramref name="target"/>, а если файла
+		/// нет — значения по умолчанию из <see cref="ConfigKeys.Defaults"/>.
 		/// </summary>
-		public static LogHubConfig Load(string path)
+		public static void LoadInto(IConfigService target, string path)
 		{
-			return File.Exists(path)
+			var values = File.Exists(path)
 				? ConfigParser.Parse(File.ReadAllLines(path))
-				: LogHubConfig.Defaults;
+				: ConfigKeys.Defaults;
+
+			foreach (KeyValuePair<string, string> pair in values)
+			{
+				target.SetValue(pair.Key, pair.Value);
+			}
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using LogHub.Composition;
 using LogHub.Model;
 
 namespace LogHub.Sinks
@@ -6,6 +7,7 @@ namespace LogHub.Sinks
 	/// <summary>
 	/// Вывод в консоль: Error и Critical — красным, остальное — серым.
 	/// </summary>
+	[ConfigName("console")]
 	public sealed class ConsoleSink : ILogSink
 	{
 		public void Write(LogRecord record, string text)

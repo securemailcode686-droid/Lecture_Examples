@@ -18,7 +18,7 @@ namespace LogHub.Tests
 		[DataRow("Warning", "error", false, DisplayName = "регистр важен: error ≠ Error")]
 		public void Фильтр_ПропускаетЗаписиНеНижеПорога(string minSeverity, string severity, bool expected)
 		{
-			var filter = new SeverityFilter(minSeverity);
+			var filter = new SeverityFilter(Configs.With(("minSeverity", minSeverity)));
 
 			Assert.AreEqual(expected, filter.Passes(Records.Of(severity)));
 		}

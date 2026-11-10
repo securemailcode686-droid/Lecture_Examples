@@ -1,4 +1,5 @@
 using System;
+using LogHub.Configuration;
 
 namespace LogHub.Sinks
 {
@@ -12,9 +13,10 @@ namespace LogHub.Sinks
 		private readonly string _connectionString;
 		private bool _open;
 
-		public ConsoleDatabaseStub(string connectionString)
+		/// <summary>Строка подключения — ключ <c>connection</c>, по умолчанию <c>local</c>.</summary>
+		public ConsoleDatabaseStub(IConfigService config)
 		{
-			_connectionString = connectionString;
+			_connectionString = config.GetValueOrDefault(ConfigKeys.Connection, "local");
 		}
 
 		public void Open()

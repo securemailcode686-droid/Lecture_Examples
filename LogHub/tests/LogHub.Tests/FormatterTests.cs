@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using LogHub.Composition;
 using LogHub.Formatting;
 using LogHub.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -37,20 +38,11 @@ namespace LogHub.Tests
 		}
 
 		[TestMethod]
-		public void НеизвестныйФормат_ВыводитТолькоСообщение()
-		{
-			var registry = FormatterRegistry.FromAssembly(typeof(Program).Assembly, new MessageOnlyFormatter());
-
-			Assert.AreEqual("ответ \"502\" от upstream", registry.Resolve("xml").Format(Record));
-		}
-
-		[TestMethod]
 		public void СборкаLogHub_СодержитВсеФорматыИсходногоМодуля()
 		{
-			var registry = FormatterRegistry.FromAssembly(typeof(Program).Assembly, new MessageOnlyFormatter());
+			var catalog = TypeCatalog<ILogFormatter>.FromAssembly(typeof(Program).Assembly);
 
-			CollectionAssert.IsSubsetOf(new[] { "plain", "json", "csv" }, registry.Names.ToArray());
-			Assert.IsInstanceOfType(registry.Resolve("json"), typeof(JsonFormatter));
+			CollectionAssert.AreEquivalent(new[] { "plain", "json", "csv", "message" }, catalog.Names.ToArray());
 		}
 	}
 }

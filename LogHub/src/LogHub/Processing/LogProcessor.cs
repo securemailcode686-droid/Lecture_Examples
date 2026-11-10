@@ -12,15 +12,20 @@ namespace LogHub.Processing
 	/// </summary>
 	public sealed class LogProcessor
 	{
+		private readonly ILogSink _sink;
 		private readonly SeverityFilter _filter;
 		private readonly ILogFormatter _formatter;
-		private readonly ILogSink _sink;
 
-		public LogProcessor(SeverityFilter filter, ILogFormatter formatter, ILogSink sink)
+		/// <remarks>
+		/// Порядок параметров важен: контейнер создаёт зависимости по порядку,
+		/// и приёмник (открытие файла или соединения) должен появиться раньше,
+		/// чем читается порог, — как у исходного модуля.
+		/// </remarks>
+		public LogProcessor(ILogSink sink, SeverityFilter filter, ILogFormatter formatter)
 		{
+			_sink = sink;
 			_filter = filter;
 			_formatter = formatter;
-			_sink = sink;
 		}
 
 		public ProcessingStats Process(IEnumerable<string> lines)

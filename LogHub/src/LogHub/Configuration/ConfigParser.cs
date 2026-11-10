@@ -9,7 +9,7 @@ namespace LogHub.Configuration
 	/// </summary>
 	public static class ConfigParser
 	{
-		public static LogHubConfig Parse(IEnumerable<string> lines)
+		public static IReadOnlyDictionary<string, string> Parse(IEnumerable<string> lines)
 		{
 			var values = new Dictionary<string, string>();
 
@@ -27,7 +27,7 @@ namespace LogHub.Configuration
 				}
 			}
 
-			return new LogHubConfig(values);
+			return values;
 		}
 	}
 }

@@ -34,7 +34,7 @@ namespace LogHub.Tests
 		[TestMethod]
 		public void ИмяФайла_ПоДатеЗапуска()
 		{
-			Assert.AreEqual("logs-20260115.txt", FileSinkFactory.FileName(new DateTime(2026, 1, 15, 23, 59, 0)));
+			Assert.AreEqual("logs-20260115.txt", FileSink.FileName(new DateTime(2026, 1, 15, 23, 59, 0)));
 		}
 	}
 }

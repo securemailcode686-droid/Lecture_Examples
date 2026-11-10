@@ -5,7 +5,7 @@ namespace LogHub.Sinks
 	/// <summary>
 	/// То, что <see cref="DatabaseSink"/> требует от клиента базы данных.
 	/// Сейчас реализован заглушкой <see cref="ConsoleDatabaseStub"/>;
-	/// по варианту 12 в ЛР 5 появится реализация поверх SQLite.
+	/// по варианту 12 позже появится реализация поверх SQLite.
 	/// </summary>
 	public interface ILogDatabase
 	{

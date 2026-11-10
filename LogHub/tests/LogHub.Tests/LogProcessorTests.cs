@@ -20,11 +20,16 @@ namespace LogHub.Tests
 			"2026-01-15T10:00:03|Critical|Нет связи с базой данных"
 		};
 
+		private static SeverityFilter FilterAt(string minSeverity)
+		{
+			return new SeverityFilter(Configs.With(("minSeverity", minSeverity)));
+		}
+
 		[TestMethod]
 		public void ДемоВход_ТриЗаписаныДвеПропущены_КакУИсходногоМодуля()
 		{
 			var sink = new SpySink();
-			var processor = new LogProcessor(new SeverityFilter("Info"), new PlainFormatter(), sink);
+			var processor = new LogProcessor(sink, FilterAt("Info"), new PlainFormatter());
 
 			var stats = processor.Process(DemoLines);
 
@@ -43,7 +48,7 @@ namespace LogHub.Tests
 		public void НеразобранныеИОтфильтрованные_СчитаютсяВместеИВПриёмникНеПопадают()
 		{
 			var sink = new SpySink();
-			var processor = new LogProcessor(new SeverityFilter("Critical"), new PlainFormatter(), sink);
+			var processor = new LogProcessor(sink, FilterAt("Critical"), new PlainFormatter());
 
 			var stats = processor.Process(DemoLines);
 
@@ -55,7 +60,7 @@ namespace LogHub.Tests
 		public void Приёмник_ПолучаетИсходнуюЗаписьИТекстВыбранногоФормата()
 		{
 			var sink = new SpySink();
-			var processor = new LogProcessor(new SeverityFilter("Debug"), new CsvFormatter(), sink);
+			var processor = new LogProcessor(sink, FilterAt("Debug"), new CsvFormatter());
 
 			processor.Process(new[] { "2026-01-15T10:00:00|Debug|Запуск приложения" });
 
@@ -69,7 +74,7 @@ namespace LogHub.Tests
 		public void ПустойВход_НичегоНеЗаписано()
 		{
 			var sink = new SpySink();
-			var processor = new LogProcessor(new SeverityFilter("Info"), new PlainFormatter(), sink);
+			var processor = new LogProcessor(sink, FilterAt("Info"), new PlainFormatter());
 
 			var stats = processor.Process(System.Array.Empty<string>());
 
