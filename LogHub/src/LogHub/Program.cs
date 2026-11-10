@@ -1,10 +1,18 @@
 using System;
+using System.IO;
+using LogHub.Composition;
+using LogHub.Configuration;
+using LogHub.Processing;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LogHub
 {
 	/// <summary>
-	/// Точка входа LogHub. Пока только каркас: обработка логов появится
-	/// в части B лабораторной работы 1.
+	/// Точка входа и вершина композиционного корня.
+	///
+	///     dotnet run --project src/LogHub -- путь/к/файлу.log
+	///
+	/// Конфигурация читается из loghub.config в текущем каталоге.
 	/// </summary>
 	public static class Program
 	{
@@ -18,7 +26,27 @@ namespace LogHub
 				return 2;
 			}
 
-			Console.WriteLine($"LogHub: каркас, файл {args[0]} пока не обрабатывается.");
+			var config = new ConfigService();
+			ConfigFile.LoadInto(config, ConfigFile.DefaultPath);
+
+			var services = new ServiceCollection();
+			CompositionRoot.ConfigureServices(services, config, typeof(Program).Assembly);
+
+			ProcessingStats stats;
+			using (var provider = services.BuildServiceProvider(new ServiceProviderOptions
+			       {
+				       ValidateScopes = true,
+				       ValidateOnBuild = true
+			       }))
+			{
+				// Единственное обращение к контейнеру во всём приложении.
+				var processor = provider.GetRequiredService<LogProcessor>();
+				stats = processor.Process(File.ReadLines(args[0]));
+			}
+
+			// Итог печатается после освобождения контейнера: приёмники уже закрыты,
+			// как у исходного модуля.
+			Console.WriteLine($"Записано: {stats.Written}, пропущено: {stats.Skipped}");
 			return 0;
 		}
 	}

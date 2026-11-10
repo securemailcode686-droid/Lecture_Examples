@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Запускает исходный god-класс из учебного репозитория на произвольном файле,
+    чтобы сравнить его вывод с выводом LogHub (tools/compare-with-god-object.sh).
+    Код god-класса не копируется: проект ссылается на DesignPatterns/Implementation.
+    В LogHub.sln не входит — это инструмент проверки, а не часть решения.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>LegacyRunner</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DesignPatterns\Implementation\Implementation.csproj" />
+  </ItemGroup>
+
+</Project>
