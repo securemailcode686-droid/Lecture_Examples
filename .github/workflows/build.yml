@@ -2,7 +2,8 @@ name: build
 
 # Основа — build.yml учебного репозитория (сборка и тесты DesignPatterns).
 # Добавлено: сборка и тесты LogHub, сравнение его вывода с исходным
-# god-object, проверка диаграмм PlantUML в отчётах.
+# god-object (ЛР1), запуск двух профилей и воспроизведение проблемы
+# синглтона (ЛР2), проверка диаграмм PlantUML в отчётах.
 
 on:
   push:
@@ -46,6 +47,12 @@ jobs:
 
       - name: LogHub — вывод совпадает с исходным god-object
         run: bash LogHub/tools/compare-with-god-object.sh
+
+      - name: LogHub — профили console и file без перекомпиляции
+        run: bash LogHub/tools/run-profiles.sh
+
+      - name: LogHub — классический синглтон зависит от порядка тестов
+        run: bash LogHub/tools/show-singleton-order-problem.sh
 
   diagrams:
     # Диаграммы в отчётах записаны блоками ```plantuml. Задание падает,
