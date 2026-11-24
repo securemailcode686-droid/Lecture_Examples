@@ -15,7 +15,7 @@ namespace LogHub.Tests
 		{
 			var catalog = TypeCatalog<ILogSink>.FromAssembly(typeof(Program).Assembly);
 
-			CollectionAssert.AreEquivalent(new[] { "console", "database", "file" }, catalog.Names.ToArray());
+			CollectionAssert.AreEquivalent(new[] { "console", "file", "database", "sqlite" }, catalog.Names.ToArray());
 		}
 
 		[TestMethod]

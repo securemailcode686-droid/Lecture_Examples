@@ -1,6 +1,7 @@
 using System;
 using LogHub.Importing;
 using LogHub.Composition;
+using LogHub.Graphs;
 using LogHub.Configuration;
 using LogHub.Processing;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,7 @@ namespace LogHub
 	/// </summary>
 	public static class Program
 	{
-		public const string Usage = "Использование: LogHub <путь к файлу лога>";
+		public const string Usage = "Использование: LogHub <путь к файлу лога> | --graph [--demo-cycle]";
 
 		public static int Main(string[] args)
 		{
@@ -32,7 +33,21 @@ namespace LogHub
 			var services = new ServiceCollection();
 			CompositionRoot.ConfigureServices(services, config, typeof(Program).Assembly);
 
-			ProcessingStats stats;
+
+            if (args[0] == "--graph")
+            {
+                GraphReport.Print(services);
+
+                if (args.Length > 1 &&
+                    args[1] == "--demo-cycle")
+                {
+                    GraphReport.PrintCycleDemo();
+                }
+
+                return 0;
+            }
+
+            ProcessingStats stats;
 			using (var provider = services.BuildServiceProvider(new ServiceProviderOptions
 			       {
 				       ValidateScopes = true,

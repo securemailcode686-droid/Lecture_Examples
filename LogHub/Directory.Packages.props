@@ -1,14 +1,12 @@
 <Project>
-
   <!-- Версии пакетов совпадают с DesignPatterns/Directory.Packages.props. -->
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
-
   <ItemGroup>
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="10.0.15" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="MSTest" Version="3.10.3" />
   </ItemGroup>
-
 </Project>
