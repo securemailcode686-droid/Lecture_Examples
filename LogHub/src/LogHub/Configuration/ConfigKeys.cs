@@ -8,6 +8,7 @@ namespace LogHub.Configuration
 		public const string Sink = "sink";
 		public const string MinSeverity = "minSeverity";
 		public const string Format = "format";
+		public const string Importer = "importer";
 		public const string Connection = "connection";
 
 		/// <summary>Действуют, только когда файла конфигурации нет вовсе — как у исходного модуля.</summary>

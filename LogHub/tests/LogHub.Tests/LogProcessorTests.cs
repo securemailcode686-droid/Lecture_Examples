@@ -1,6 +1,7 @@
 using System.Linq;
 using LogHub.Filtering;
 using LogHub.Formatting;
+using LogHub.Importing;
 using LogHub.Processing;
 using LogHub.Tests.Doubles;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -29,7 +30,7 @@ namespace LogHub.Tests
 		public void ДемоВход_ТриЗаписаныДвеПропущены_КакУИсходногоМодуля()
 		{
 			var sink = new SpySink();
-			var processor = new LogProcessor(sink, FilterAt("Info"), new PlainFormatter());
+			var processor = new LogProcessor(sink, FilterAt("Info"), new PlainFormatter(), new TextLogImporter());
 
 			var stats = processor.Process(DemoLines);
 
@@ -48,7 +49,7 @@ namespace LogHub.Tests
 		public void НеразобранныеИОтфильтрованные_СчитаютсяВместеИВПриёмникНеПопадают()
 		{
 			var sink = new SpySink();
-			var processor = new LogProcessor(sink, FilterAt("Critical"), new PlainFormatter());
+			var processor = new LogProcessor(sink, FilterAt("Critical"), new PlainFormatter(), new TextLogImporter());
 
 			var stats = processor.Process(DemoLines);
 
@@ -60,7 +61,7 @@ namespace LogHub.Tests
 		public void Приёмник_ПолучаетИсходнуюЗаписьИТекстВыбранногоФормата()
 		{
 			var sink = new SpySink();
-			var processor = new LogProcessor(sink, FilterAt("Debug"), new CsvFormatter());
+			var processor = new LogProcessor(sink, FilterAt("Debug"), new CsvFormatter(), new TextLogImporter());
 
 			processor.Process(new[] { "2026-01-15T10:00:00|Debug|Запуск приложения" });
 
@@ -74,7 +75,7 @@ namespace LogHub.Tests
 		public void ПустойВход_НичегоНеЗаписано()
 		{
 			var sink = new SpySink();
-			var processor = new LogProcessor(sink, FilterAt("Info"), new PlainFormatter());
+			var processor = new LogProcessor(sink, FilterAt("Info"), new PlainFormatter(), new TextLogImporter());
 
 			var stats = processor.Process(System.Array.Empty<string>());
 

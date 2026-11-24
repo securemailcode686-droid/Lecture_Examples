@@ -3,6 +3,7 @@ using System.Reflection;
 using LogHub.Configuration;
 using LogHub.Filtering;
 using LogHub.Formatting;
+using LogHub.Importing;
 using LogHub.Processing;
 using LogHub.Sinks;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,7 @@ namespace LogHub.Composition
 
 			services.AddSingleton<ILogDatabase, ConsoleDatabaseStub>();
 			services.AddSingleton<SeverityFilter>();
+			services.AddSingleton(typeof(ILogImporter), SelectImporter(config, plugins));
 			services.AddTransient<LogProcessor>();
 		}
 
@@ -49,5 +51,22 @@ namespace LogHub.Composition
 				? type
 				: typeof(MessageOnlyFormatter);
 		}
+
+        public static Type SelectImporter(
+            IConfigService config, Assembly plugins)
+        {
+            var name = config.GetValueOrDefault(
+                ConfigKeys.Importer, "text");
+
+            return TypeCatalog<ILogImporter>
+                .FromAssembly(plugins).TryGet(name, out var type)
+                || TypeCatalog<ILogImporter>
+                .FromAssembly(typeof(TextLogImporter).Assembly)
+                .TryGet(name, out type)
+                ? type
+                : throw new NotSupportedException(
+                    $"Импортёр '{name}' не поддерживается");
+        }
+
 	}
 }

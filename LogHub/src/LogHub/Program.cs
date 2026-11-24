@@ -1,5 +1,5 @@
 using System;
-using System.IO;
+using LogHub.Importing;
 using LogHub.Composition;
 using LogHub.Configuration;
 using LogHub.Processing;
@@ -41,7 +41,7 @@ namespace LogHub
 			{
 				// Единственное обращение к контейнеру во всём приложении.
 				var processor = provider.GetRequiredService<LogProcessor>();
-				stats = processor.Process(File.ReadLines(args[0]));
+				stats = processor.Process(LogInput.FromFile(args[0]));
 			}
 
 			// Итог печатается после освобождения контейнера: приёмники уже закрыты,
