@@ -1,0 +1,60 @@
+2026/11/24 10:00:00 [warn] 1234#0: *1 request failed, client: 192.168.1.10, server: localhost, status: 400
+2026/11/24 10:00:01 [error] 1234#0: *2 request failed, client: 192.168.1.10, server: localhost, status: 403
+2026/11/24 10:00:02 [crit] 1234#0: *3 request failed, client: 192.168.1.10, server: localhost, status: 404
+2026/11/24 10:00:03 [warn] 1234#0: *4 request failed, client: 192.168.1.10, server: localhost, status: 500
+2026/11/24 10:00:04 [error] 1234#0: *5 request failed, client: 192.168.1.10, server: localhost, status: 502
+2026/11/24 10:00:05 [crit] 1234#0: *6 request failed, client: 192.168.1.10, server: localhost, status: 503
+2026/11/24 10:00:06 [warn] 1234#0: *7 request failed, client: 192.168.1.10, server: localhost, status: 400
+2026/11/24 10:00:07 [error] 1234#0: *8 request failed, client: 192.168.1.10, server: localhost, status: 403
+2026/11/24 10:00:08 [crit] 1234#0: *9 request failed, client: 192.168.1.10, server: localhost, status: 404
+2026/11/24 10:00:09 [warn] 1234#0: *10 request failed, client: 192.168.1.10, server: localhost, status: 500
+2026/11/24 10:00:10 [error] 1234#0: *11 request failed, client: 192.168.1.10, server: localhost, status: 502
+2026/11/24 10:00:11 [crit] 1234#0: *12 request failed, client: 192.168.1.10, server: localhost, status: 503
+2026/11/24 10:00:12 [warn] 1234#0: *13 request failed, client: 192.168.1.10, server: localhost, status: 400
+2026/11/24 10:00:13 [error] 1234#0: *14 request failed, client: 192.168.1.10, server: localhost, status: 403
+2026/11/24 10:00:14 [crit] 1234#0: *15 request failed, client: 192.168.1.10, server: localhost, status: 404
+2026/11/24 10:00:15 [warn] 1234#0: *16 request failed, client: 192.168.1.10, server: localhost, status: 500
+2026/11/24 10:00:16 [error] 1234#0: *17 request failed, client: 192.168.1.10, server: localhost, status: 502
+2026/11/24 10:00:17 [crit] 1234#0: *18 request failed, client: 192.168.1.10, server: localhost, status: 503
+2026/11/24 10:00:18 [warn] 1234#0: *19 request failed, client: 192.168.1.10, server: localhost, status: 400
+2026/11/24 10:00:19 [error] 1234#0: *20 request failed, client: 192.168.1.10, server: localhost, status: 403
+2026/11/24 10:00:20 [crit] 1234#0: *21 request failed, client: 192.168.1.10, server: localhost, status: 404
+2026/11/24 10:00:21 [warn] 1234#0: *22 request failed, client: 192.168.1.10, server: localhost, status: 500
+2026/11/24 10:00:22 [error] 1234#0: *23 request failed, client: 192.168.1.10, server: localhost, status: 502
+2026/11/24 10:00:23 [crit] 1234#0: *24 request failed, client: 192.168.1.10, server: localhost, status: 503
+2026/11/24 10:00:24 [warn] 1234#0: *25 request failed, client: 192.168.1.10, server: localhost, status: 400
+2026/11/24 10:00:25 [error] 1234#0: *26 request failed, client: 192.168.1.10, server: localhost, status: 403
+2026/11/24 10:00:26 [crit] 1234#0: *27 request failed, client: 192.168.1.10, server: localhost, status: 404
+2026/11/24 10:00:27 [warn] 1234#0: *28 request failed, client: 192.168.1.10, server: localhost, status: 500
+2026/11/24 10:00:28 [error] 1234#0: *29 request failed, client: 192.168.1.10, server: localhost, status: 502
+2026/11/24 10:00:29 [crit] 1234#0: *30 request failed, client: 192.168.1.10, server: localhost, status: 503
+2026/11/24 10:00:30 [warn] 1234#0: *31 request failed, client: 192.168.1.10, server: localhost, status: 400
+2026/11/24 10:00:31 [error] 1234#0: *32 request failed, client: 192.168.1.10, server: localhost, status: 403
+2026/11/24 10:00:32 [crit] 1234#0: *33 request failed, client: 192.168.1.10, server: localhost, status: 404
+2026/11/24 10:00:33 [warn] 1234#0: *34 request failed, client: 192.168.1.10, server: localhost, status: 500
+2026/11/24 10:00:34 [error] 1234#0: *35 request failed, client: 192.168.1.10, server: localhost, status: 502
+2026/11/24 10:00:35 [crit] 1234#0: *36 request failed, client: 192.168.1.10, server: localhost, status: 503
+2026/11/24 10:00:36 [warn] 1234#0: *37 request failed, client: 192.168.1.10, server: localhost, status: 400
+2026/11/24 10:00:37 [error] 1234#0: *38 request failed, client: 192.168.1.10, server: localhost, status: 403
+2026/11/24 10:00:38 [crit] 1234#0: *39 request failed, client: 192.168.1.10, server: localhost, status: 404
+2026/11/24 10:00:39 [warn] 1234#0: *40 request failed, client: 192.168.1.10, server: localhost, status: 500
+2026/11/24 10:00:40 [error] 1234#0: *41 request failed, client: 192.168.1.10, server: localhost, status: 502
+2026/11/24 10:00:41 [crit] 1234#0: *42 request failed, client: 192.168.1.10, server: localhost, status: 503
+2026/11/24 10:00:42 [warn] 1234#0: *43 request failed, client: 192.168.1.10, server: localhost, status: 400
+2026/11/24 10:00:43 [error] 1234#0: *44 request failed, client: 192.168.1.10, server: localhost, status: 403
+2026/11/24 10:00:44 [crit] 1234#0: *45 request failed, client: 192.168.1.10, server: localhost, status: 404
+2026/11/24 10:00:45 [warn] 1234#0: *46 request failed, client: 192.168.1.10, server: localhost, status: 500
+2026/11/24 10:00:46 [error] 1234#0: *47 request failed, client: 192.168.1.10, server: localhost, status: 502
+2026/11/24 10:00:47 [crit] 1234#0: *48 request failed, client: 192.168.1.10, server: localhost, status: 503
+2026/11/24 10:01:00 [error] 1234#0: upstream timed out
+2026/11/24 10:01:01 [error] 1234#0: upstream timed out
+2026/11/24 10:01:02 [error] 1234#0: upstream timed out
+2026/11/24 10:01:03 [error] 1234#0: upstream timed out
+2026/11/24 10:01:04 [error] 1234#0: upstream timed out
+2026/11/24 10:01:05 [error] 1234#0: upstream timed out
+2026/11/24 10:02:00 [error] 1234#0: invalid response, status: 99
+2026/11/24 10:02:00 [error] 1234#0: invalid response, status: 600
+2026/11/24 10:02:00 [error] 1234#0: invalid response, status: 999
+invalid log line
+2026/99/99 10:00:00 [error] invalid date
+2026/11/24 10:00:00 [unknown] invalid level

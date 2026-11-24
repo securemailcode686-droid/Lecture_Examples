@@ -6,6 +6,15 @@
     <RootNamespace>LogHub.Tests</RootNamespace>
   </PropertyGroup>
 
+  <!--
+    dotnet test -p:ShowOrderProblem=true снимает [Ignore] с теста, который
+    показывает зависимость классического синглтона от порядка выполнения
+    (tools/show-singleton-order-problem.sh).
+  -->
+  <PropertyGroup Condition="'$(ShowOrderProblem)' == 'true'">
+    <DefineConstants>$(DefineConstants);SHOW_ORDER_PROBLEM</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="MSTest" />
